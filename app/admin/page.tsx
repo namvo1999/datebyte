@@ -21,9 +21,9 @@ export default function AdminPage() {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = (event) => {
         try {
-          const data = JSON.parse(e.target?.result as string);
+          const data = JSON.parse(event.target?.result as string);
           setResponses([{
             timestamp: new Date().toISOString(),
             data: data

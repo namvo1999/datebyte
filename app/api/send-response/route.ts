@@ -13,7 +13,8 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: Request) {
   if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
-    return NextResponse.json({ success: true, emailSent: false });
+    console.error('Missing email credentials');
+    return NextResponse.json({ success: false, error: 'Missing email configuration' }, { status: 500 });
   }
 
   try {
@@ -39,7 +40,11 @@ export async function POST(request: Request) {
     })
     
     return NextResponse.json({ success: true, emailSent: true })
-  } catch {
-    return NextResponse.json({ success: true, emailSent: false })
+  } catch (error: unknown) {
+    console.error('Failed to send email:', error)
+    if (error instanceof Error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    }
+    return NextResponse.json({ success: false, error: 'An unknown error occurred' }, { status: 500 })
   }
 }
