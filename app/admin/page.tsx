@@ -9,7 +9,7 @@ interface StoredResponse {
     date: string | null;
     time: string;
     food: string[];
-    movie: string;
+    chillActivity: string;
     excitement: number;
   };
 }
@@ -28,8 +28,8 @@ export default function AdminPage() {
             timestamp: new Date().toISOString(),
             data: data
           }]);
-        } catch (error) {
-          console.error('Error parsing JSON:', error);
+        } catch {
+          return null;
         }
       };
       reader.readAsText(file);
@@ -66,7 +66,7 @@ export default function AdminPage() {
               <p>Date: {response.data.date ? new Date(response.data.date).toLocaleDateString() : 'Not selected'}</p>
               <p>Time: {response.data.time || 'Not selected'}</p>
               <p>Food Choices: {response.data.food.join(', ') || 'Not selected'}</p>
-              <p>Movie: {response.data.movie || 'Not selected'}</p>
+              <p>Chill tiếp: {response.data.chillActivity || 'Not selected'}</p>
               <p>Excitement Level: {response.data.excitement}/100</p>
             </div>
           </div>

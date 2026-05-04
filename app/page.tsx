@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -21,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Heart, Coffee, Film, Utensils, Clock } from "lucide-react";
+import { Heart, Coffee, Film, Clock, Footprints, House } from "lucide-react";
 import confetti from "canvas-confetti";
 import ThemedCard from "@/components/ThemedCard";
 import Sparkles from "@/components/Sparkles";
@@ -29,13 +30,18 @@ import FloatingOrbs from "@/components/FloatingOrbs";
 import FairyFooter from "@/components/FairyFooter";
 import StepCard from "@/components/StepCard";
 import SelectButton from "@/components/SelectButton";
+import caffeImg from "./img/caffe.jpg";
+import doNuongImg from "./img/do nuong.webp";
+import lauImg from "./img/lau.webp";
+import pizzaImg from "./img/pizza.jpg";
+import tuNauImg from "./img/tu nau.jpg";
 
 interface Answers {
   isAvailable: boolean | null;
   date: Date | null;
   time: string;
   food: string[];
-  movie: string;
+  chillActivity: string;
   excitement: number;
 }
 
@@ -58,7 +64,7 @@ export default function EnchantingDateProposalApp() {
     date: null,
     time: "",
     food: [],
-    movie: "",
+    chillActivity: "",
     excitement: 50,
   });
 
@@ -87,7 +93,7 @@ export default function EnchantingDateProposalApp() {
     if (!d) return "";
     try {
       return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-    } catch (e) {
+    } catch {
       return d.toDateString();
     }
   };
@@ -96,7 +102,7 @@ export default function EnchantingDateProposalApp() {
     
     <motion.div key="step0" className="text-center" {...fadeInUp}>
       <h1 className="text-4xl sm:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-rose-500">
-        Will you go on a date with me?
+        Bợn với mềnh đi chill chill hong nè?
       </h1>
       <motion.img
         initial={{ opacity: 0, scale: 0.8 }}
@@ -114,7 +120,7 @@ export default function EnchantingDateProposalApp() {
           }}
           className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105"
         >
-          Yes, I&apos;d love to!
+          Có chứuu, mềnh đi liền!
         </Button>
         <Dialog>
           <DialogTrigger asChild>
@@ -122,16 +128,16 @@ export default function EnchantingDateProposalApp() {
               variant="outline"
               className="border-pink-300 text-pink-500 hover:bg-pink-100 font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105"
             >
-              No
+              Khoải
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-pink-50 border-2 border-pink-300">
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold text-pink-600">
-                There is no &quot;NOOOOOO&quot;
+                Noooo bị cấm rồi nha
               </DialogTitle>
               <DialogDescription className="text-lg text-pink-500">
-                You must come with me!
+                bợn chỉ được đi với mềnh thôi!
               </DialogDescription>
             </DialogHeader>
             <motion.img
@@ -149,7 +155,7 @@ export default function EnchantingDateProposalApp() {
               }}
               className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105"
             >
-              Okay, I&apos;ll come!
+              Okii, mềnh đi nhaa
             </Button>
           </DialogContent>
         </Dialog>
@@ -160,7 +166,7 @@ export default function EnchantingDateProposalApp() {
     <motion.div key="step1" className="text-center" {...fadeInUp}>
       <StepCard stepNumber={1} totalSteps={6}>
       <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
-        YEYYYYYYYY, WHEN SHALL WE GO?
+        Yeyyyy, mình đi khi nào đây bợn ơi?
       </h2>
       <motion.img
         initial={{ opacity: 0, scale: 0.8 }}
@@ -223,7 +229,7 @@ export default function EnchantingDateProposalApp() {
         disabled={!answers.date || !answers.time}
         className="bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-95 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
       >
-        <Clock className="mr-2 h-5 w-5" /> Set our date!{" "}
+        <Clock className="mr-2 h-5 w-5" /> Bợn chốt kèo đi!{" "}
         <Heart className="ml-2 h-5 w-5" />
       </Button>
       </StepCard>
@@ -233,20 +239,48 @@ export default function EnchantingDateProposalApp() {
     <motion.div key="step2" className="text-center" {...fadeInUp}>
       <StepCard stepNumber={2} totalSteps={6}>
       <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
-        What shall we feast on, my dear?
+        Bợn chọn món đi, mềnh ăn gì cũng thấy ngon hết nha?
       </h2>
       <div className="grid grid-cols-2 gap-4 md:gap-6 mb-8">
         {[
-          { name: "Lasagna", icon: <Utensils className="w-6 h-6" /> },
-          { name: "Chicken Pie", icon: <Utensils className="w-6 h-6" /> },
-          { name: "Chicken Shawarma", icon: <Utensils className="w-6 h-6" /> },
-          { name: "Snack Platter", icon: <Coffee className="w-6 h-6" /> },
-          { name: "Mix rice", icon: <Utensils className="w-6 h-6" /> },
-        ].map(({ name, icon }) => (
+          {
+            name: "Lẩu",
+            image: lauImg,
+          },
+          {
+            name: "Đồ Nướng",
+            image: doNuongImg,
+          },
+          {
+            name: "Cà phê",
+            image: caffeImg,
+          },
+          {
+            name: "Pizza",
+            image: pizzaImg,
+          },
+          {
+            name: "Tự nấu",
+            image: tuNauImg,
+          },
+          {
+            name: "Thích gì ăn đó",
+            image: tuNauImg,
+          },
+        ].map(({ name, image }) => (
           <SelectButton
             key={name}
-            icon={icon}
+            icon={
+              <Image
+                src={image}
+                alt={name}
+                width={300}
+                height={180}
+                className="h-full w-full object-cover"
+              />
+            }
             label={name}
+            hasImage
             isSelected={answers.food.includes(name)}
             onClick={() => {
               const newFood = answers.food.includes(name)
@@ -262,56 +296,48 @@ export default function EnchantingDateProposalApp() {
         disabled={answers.food.length === 0}
         className="bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-95 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
       >
-        Looks delicious! 🍽️
+        Hấp dẫn nha! 🍽️
       </Button>
       </StepCard>
     </motion.div>,
 
      
     <motion.div key="step3" className="text-center" {...fadeInUp}>
-      <h2 className="text-3xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
-        What shall we watch together?
+      <StepCard stepNumber={3} totalSteps={6}>
+      <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
+        Bợn có muốn mình đi chill chill tiếp khum?
       </h2>
-      <div className="grid grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-2 gap-4 md:gap-6 mb-8">
         {[
-          "The Notebook",
-          "La La Land",
-          "Titanic",
-          "Pride and Prejudice",
-          "Anyone But You",
-          "Past Lives",
-          "Love at First Sight",
-          "Through My Window 3",
-          "Something else",
-        ].map((movie) => (
-          <motion.button
-            key={movie}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-pink-600 hover:bg-pink-100 font-bold py-4 px-6 rounded-lg shadow-md transition-colors duration-300"
-            onClick={() => {
-              if (movie === "Something else") {
-                const customMovie = prompt(
-                  "What movie would you like to watch?"
-                );
-                if (customMovie) handleAnswer("movie", customMovie);
-              } else {
-                handleAnswer("movie", movie);
-              }
-            }}
-          >
-            <Film className="mx-auto mb-2" />
-            {movie}
-          </motion.button>
+          { name: "Đi dạo", icon: <Footprints className="w-6 h-6" /> },
+          { name: "Đi cà phê", icon: <Coffee className="w-6 h-6" /> },
+          { name: "Đi coi phim", icon: <Film className="w-6 h-6" /> },
+          { name: "Đi dìa", icon: <House className="w-6 h-6" /> },
+        ].map(({ name, icon }) => (
+          <SelectButton
+            key={name}
+            icon={icon}
+            label={name}
+            isSelected={answers.chillActivity === name}
+            onClick={() => setAnswers({ ...answers, chillActivity: name })}
+          />
         ))}
       </div>
+      <Button
+        onClick={() => setStep(step + 1)}
+        disabled={!answers.chillActivity}
+        className="bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-95 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+      >
+        Mình chill tiếp nhaa
+      </Button>
+      </StepCard>
     </motion.div>,
 
     
     <motion.div key="step4" className="text-center" {...fadeInUp}>
       <StepCard stepNumber={4} totalSteps={6}>
       <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
-        How excited are you for our date?
+        Bợn háo hức với buổi đi chơi của tụi mình cỡ nào nè?
       </h2>
       <div className="max-w-lg mx-auto mb-8 p-8 bg-gradient-to-b from-white/80 to-pink-50/60 rounded-2xl shadow-lg border border-pink-100">
         <Slider
@@ -323,8 +349,8 @@ export default function EnchantingDateProposalApp() {
           }
         />
         <div className="flex justify-between mt-6 text-sm text-pink-600 font-semibold">
-          <span>😐 Can&apos;t wait!</span>
-          <span>🤩 Super duper excited!</span>
+          <span>😐 Cũng mong mong nhẹ nhẹ nè</span>
+          <span>🤩 Thiệt là háo hức!</span>
         </div>
       </div>
       <motion.div
@@ -333,7 +359,7 @@ export default function EnchantingDateProposalApp() {
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
       >
-        Excitement level: <span className="text-rose-500">{answers.excitement}%</span>
+        Độ háo hức: <span className="text-rose-500">{answers.excitement}%</span>
       </motion.div>
       <Button
         onClick={() => {
@@ -342,7 +368,7 @@ export default function EnchantingDateProposalApp() {
         }}
         className="bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-95 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
       >
-        Let&apos;s make it official! 💕
+        Mình chốt kèo nhaaa
       </Button>
       </StepCard>
     </motion.div>,
@@ -350,11 +376,11 @@ export default function EnchantingDateProposalApp() {
      
     <motion.div key="step5" className="text-center" {...fadeInUp}>
       <StepCard stepNumber={6} totalSteps={6}>
-      <h2 className="text-5xl sm:text-6xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-rose-500">
-        It&apos;s a date, my love!
+      <h2 className="text-4xl sm:text-6xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-rose-500">
+        Chốt kèo thành công rồi nhaaa!
       </h2>
       <p className="text-lg text-rose-500 mb-3 font-poppins">
-        I can&apos;t wait to see you on:
+        Háo hức quá đi
       </p>
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
@@ -387,10 +413,10 @@ export default function EnchantingDateProposalApp() {
         transition={{ delay: 1, duration: 0.6 }}
         className="mt-8 space-y-3 text-lg text-pink-600 font-poppins"
       >
-        <p className="text-base">We&apos;ll enjoy some delicious <span className="font-semibold">{answers.food.join(", ")}</span>.</p>
-        <p className="text-base">Then we&apos;ll watch <span className="font-semibold italic">&quot;{answers.movie}&quot;</span> together.</p>
+        <p className="text-base">Tụi mình sẽ thưởng thức <span className="font-semibold">{answers.food.join(", ")}</span>.</p>
+        <p className="text-base">Rồi mình sẽ <span className="font-semibold italic">{answers.chillActivity.toLowerCase()}</span> cùng nhau.</p>
         <p className="text-xl font-playfair font-bold mt-6">
-          Your excitement level: <span className="text-rose-600">{answers.excitement}/100</span>
+          Bợn háo hức tận: <span className="text-rose-600">{answers.excitement}/100</span>
         </p>
       </motion.div>
       </StepCard>
@@ -413,8 +439,8 @@ export default function EnchantingDateProposalApp() {
           },
           body: JSON.stringify(answers)
         });
-      } catch (error) {
-        console.error('Failed to send response:', error);
+      } catch {
+        // Keep the date flow smooth even if email delivery is unavailable.
       }
     };
 
