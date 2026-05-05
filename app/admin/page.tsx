@@ -10,6 +10,7 @@ interface StoredResponse {
     time: string;
     food: string[];
     chillActivity: string;
+    supportNote: string;
     excitement: number;
   };
 }
@@ -67,6 +68,7 @@ export default function AdminPage() {
               <p>Time: {response.data.time || 'Not selected'}</p>
               <p>Food Choices: {response.data.food.join(', ') || 'Not selected'}</p>
               <p>Chill tiếp: {response.data.chillActivity || 'Not selected'}</p>
+              <p>Support Note: {response.data.supportNote || 'No note'}</p>
               <p>Excitement Level: {response.data.excitement}/100</p>
             </div>
           </div>

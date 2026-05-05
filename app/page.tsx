@@ -42,6 +42,7 @@ interface Answers {
   time: string;
   food: string[];
   chillActivity: string;
+  supportNote: string;
   excitement: number;
 }
 
@@ -65,6 +66,7 @@ export default function EnchantingDateProposalApp() {
     time: "",
     food: [],
     chillActivity: "",
+    supportNote: "",
     excitement: 50,
   });
 
@@ -164,7 +166,7 @@ export default function EnchantingDateProposalApp() {
 
     
     <motion.div key="step1" className="text-center" {...fadeInUp}>
-      <StepCard stepNumber={1} totalSteps={6}>
+      <StepCard stepNumber={1} totalSteps={7}>
       <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
         Yeyyyy, mình đi khi nào đây bợn ơi?
       </h2>
@@ -237,7 +239,7 @@ export default function EnchantingDateProposalApp() {
 
   
     <motion.div key="step2" className="text-center" {...fadeInUp}>
-      <StepCard stepNumber={2} totalSteps={6}>
+      <StepCard stepNumber={2} totalSteps={7}>
       <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
         Bợn chọn món đi, mềnh ăn gì cũng thấy ngon hết nha?
       </h2>
@@ -303,7 +305,7 @@ export default function EnchantingDateProposalApp() {
 
      
     <motion.div key="step3" className="text-center" {...fadeInUp}>
-      <StepCard stepNumber={3} totalSteps={6}>
+      <StepCard stepNumber={3} totalSteps={7}>
       <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
         Bợn có muốn mình đi chill chill tiếp khum?
       </h2>
@@ -335,7 +337,34 @@ export default function EnchantingDateProposalApp() {
 
     
     <motion.div key="step4" className="text-center" {...fadeInUp}>
-      <StepCard stepNumber={4} totalSteps={6}>
+      <StepCard stepNumber={4} totalSteps={7}>
+      <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
+        Hôm đó bợn có cần lưu gì gì khum
+      </h2>
+      <textarea
+        value={answers.supportNote}
+        onChange={(event) =>
+          setAnswers({ ...answers, supportNote: event.target.value })
+        }
+        maxLength={300}
+        placeholder="Ví dụ: đón mình, nhắc mình mang áo khoác, chọn chỗ yên tĩnh..."
+        className="min-h-36 w-full resize-none rounded-2xl border-2 border-pink-100 bg-white/90 p-4 text-base text-pink-700 shadow-inner outline-none transition focus:border-pink-300 focus:ring-2 focus:ring-pink-100 placeholder:text-pink-300"
+      />
+      <div className="mt-2 text-right text-xs font-semibold text-pink-400">
+        {answers.supportNote.length}/300
+      </div>
+      <Button
+        onClick={() => setStep(step + 1)}
+        className="mt-6 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-95 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+      >
+        Tiếp tục nhaa
+      </Button>
+      </StepCard>
+    </motion.div>,
+
+    
+    <motion.div key="step5" className="text-center" {...fadeInUp}>
+      <StepCard stepNumber={5} totalSteps={7}>
       <h2 className="text-4xl sm:text-5xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-pink-600">
         Bợn háo hức với buổi đi chơi của tụi mình cỡ nào nè?
       </h2>
@@ -374,8 +403,8 @@ export default function EnchantingDateProposalApp() {
     </motion.div>,
 
      
-    <motion.div key="step5" className="text-center" {...fadeInUp}>
-      <StepCard stepNumber={6} totalSteps={6}>
+    <motion.div key="step6" className="text-center" {...fadeInUp}>
+      <StepCard stepNumber={7} totalSteps={7}>
       <h2 className="text-4xl sm:text-6xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-rose-500">
         Chốt kèo thành công rồi nhaaa!
       </h2>
@@ -415,6 +444,9 @@ export default function EnchantingDateProposalApp() {
       >
         <p className="text-base">Tụi mình sẽ thưởng thức <span className="font-semibold">{answers.food.join(", ")}</span>.</p>
         <p className="text-base">Rồi mình sẽ <span className="font-semibold italic">{answers.chillActivity.toLowerCase()}</span> cùng nhau.</p>
+        {answers.supportNote.trim() && (
+          <p className="text-base">Note của bợn: <span className="font-semibold italic">{answers.supportNote.trim()}</span></p>
+        )}
         <p className="text-xl font-playfair font-bold mt-6">
           Bợn háo hức tận: <span className="text-rose-600">{answers.excitement}/100</span>
         </p>

@@ -30,6 +30,7 @@ export async function POST(request: Request) {
         <p>Time: ${data.time}</p>
         <p>Food: ${data.food.join(', ')}</p>
         <p>Chill tiếp: ${data.chillActivity}</p>
+        <p>Support note: ${data.supportNote || 'No note'}</p>
         <p>Excitement: ${data.excitement}/100</p>
       `,
       attachments: [{
