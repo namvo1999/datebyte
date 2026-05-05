@@ -400,13 +400,13 @@ export default function EnchantingDateProposalApp() {
         alt="Excited bear gif"
         className="w-full max-w-md mx-auto mb-6 rounded-2xl shadow-2xl shadow-pink-300/30"
       />
-      <motion.div
+      {/* <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.5, type: "spring", stiffness: 260, damping: 20 }}
       >
         <Heart className="text-red-500 w-16 h-16 mx-auto mt-6 animate-pulse" />
-      </motion.div>
+      </motion.div> */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
